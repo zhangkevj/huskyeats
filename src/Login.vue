@@ -1,7 +1,6 @@
 <template>
   <div class="login">
     <el-card>
-      <h2>Login</h2>
       <el-form
         class="login-form"
         :model="model"
@@ -29,8 +28,8 @@
             block
           >Login</el-button>
         </el-form-item>
-        <a class="forgot-password" href="https://oxfordinformatics.com/">Forgot password ?</a>
       </el-form>
+      <p style="color: #000">(use user/pass: kevin/kevin)</p>
     </el-card>
   </div>
 </template>
@@ -41,8 +40,8 @@ export default {
   data() {
     return {
       validCredentials: {
-        username: "lightscope",
-        password: "lightscope"
+        username: "kevin",
+        password: "kevin"
       },
       model: {
         username: "",
@@ -76,7 +75,7 @@ export default {
   methods: {
     simulateLogin() {
       return new Promise(resolve => {
-        setTimeout(resolve, 800);
+        setTimeout(resolve, 1800);
       });
     },
     async login() {
@@ -92,6 +91,8 @@ export default {
         this.model.password === this.validCredentials.password
       ) {
         this.$message.success("Login successful!");
+        localStorage.setItem("user", this.model.username)
+        this.$router.push("/home");
       } else {
         this.$message.error("Username or password is invalid.");
       }
@@ -99,8 +100,6 @@ export default {
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .login {
   flex: 1;
@@ -120,55 +119,55 @@ export default {
   margin-top: 10px;
 }
 </style>
-<style lang="scss">
-$teal: #B7A57A;
+<style>
 .el-button--primary {
-  background: #B7A57A;
-  border-color: #B7A57A;
+  background: #4b2e83;
+  border-color: #4b2e83;
+}
 
-  &:hover,
-  &.active,
-  &:focus {
-    background: lighten(#B7A57A, 7);
-    border-color: lighten(#B7A57A, 7);
-  }
+.el-button--primary:hover,
+.el-button--primary.active,
+.el-button--primary:focus {
+  background: #4b2e83;
+  border-color: #4b2e83;
 }
+
 .login .el-input__inner:hover {
-  border-color: #B7A57A;
+  border-color: #4b2e83;
 }
+
 .login .el-input__prefix {
-  background: rgb(238, 237, 234);
+  background: #eeedea;
   left: 0;
   height: calc(100% - 2px);
   left: 1px;
   top: 1px;
   border-radius: 3px;
-  .el-input__icon {
-    width: 30px;
-  }
 }
+
+.login .el-input__prefix .el-input__icon {
+  width: 30px;
+}
+
 .login .el-input input {
   padding-left: 35px;
 }
+
 .login .el-card {
   padding-top: 0;
-  padding-bottom: 30px;
-}
-h2 {
-  font-family: "Open Sans";
-  letter-spacing: 1px;
-  font-family: Roboto, sans-serif;
-  padding-bottom: 20px;
 }
 a {
-  color: $teal;
+  color: #4b2e83;
   text-decoration: none;
-  &:hover,
-  &:active,
-  &:focus {
-    color: lighten(#B7A57A, 7);
-  }
 }
+
+a:hover,
+a:active,
+a:focus {
+  color: #4b2e83;
+}
+
+.login p { text-align: center; font-size: 12px; margin: 0 }
 .login .el-card {
   width: 340px;
   display: flex;

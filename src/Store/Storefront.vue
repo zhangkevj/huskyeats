@@ -1,30 +1,15 @@
 <template>
-  <el-main class="">
-    <h1>Storefront for {{ vendorName }}</h1>
+  <el-main class>
+    <h1>{{ vendorName }}</h1>
     <el-row>
-      <el-col
-        :md="24"
-        v-if="accepted"
-      >
+      <el-col :md="24" v-if="accepted">
         <p>Please show this code to the merchant to complete your payment.</p>
-        <qrcode
-          :value="qrCodeValue"
-          :options="{ width: 200 }"
-        ></qrcode>
+        <qrcode :value="qrCodeValue" :options="{ width: 200 }"></qrcode>
       </el-col>
       <el-col :md="24" v-else>
-        <p>Enter amount you want to pay to merchant here</p>
-        <el-input-number
-          v-model="cost"
-          :precision="2"
-          :step="0.1"
-        ></el-input-number>
-        <el-button
-          @click="checkout"
-          type="primary"
-          icon="el-icon-check"
-          circle
-        ></el-button>
+        <p>Enter amount you want to pay to merchant here in USD.</p>
+        <el-input-number v-model="cost" :precision="2" :step="0.1"></el-input-number>
+        <el-button @click="checkout" type="primary" icon="el-icon-check" circle></el-button>
       </el-col>
     </el-row>
   </el-main>
@@ -40,8 +25,8 @@ export default {
     };
   },
   mounted() {
-    this.cost = 0
-    this.accepted = false
+    this.cost = 0;
+    this.accepted = false;
   },
   computed: {
     qrCodeValue() {
@@ -72,8 +57,8 @@ export default {
         `You are about to send ${this.formattedCost} to the merchant ${this.vendorName}!`,
         "Please confirm payment",
         {
-          confirmButtonText: "yasss gurl slay",
-          cancelButtonText: "Never mind, I am not a cool yeeter",
+          confirmButtonText: "Pay",
+          cancelButtonText: "Cancel",
           type: "warning"
         }
       )
@@ -97,5 +82,14 @@ export default {
 <style scoped>
 .wallet-balance {
   font-size: 64px !important;
+}
+</style>
+<style global>
+.el-message-box {
+  max-width: 90%;
+  width: 90%;
+}
+.el-message-box__message p {
+  color: #000;
 }
 </style>

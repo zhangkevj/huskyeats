@@ -2,6 +2,8 @@
   <el-main class="">
     <h1>Your funds</h1>
     <h2 class="wallet-balance">{{ formattedBalance }}</h2>
+    <br>
+    <el-button @click="$message('Not implemented yet!')">Deposit Funds</el-button>
   </el-main>
 </template>
 

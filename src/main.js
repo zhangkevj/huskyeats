@@ -16,10 +16,9 @@ Vue.component(VueQrcode.name, VueQrcode);
 Vue.use(VueRouter)
 
 const routes = [
-  { name: 'home', path: '/', component: Home },
+  { name: 'home', path: '/home', component: Home },
   { name: 'wallet', path: '/wallet', component: Wallet },
   { name: 'storefront', path: '/store/:vendorName', component: Storefront },
-  { name: 'about', path: '/', component: About },
   { name: 'login', path: '/', component: Login },
 ]
 

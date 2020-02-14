@@ -2,42 +2,21 @@
   <el-container>
     <el-header>
       <el-row :gutter="10">
-        <el-col
-          :md="8"
-          style="text-align: left"
-        >
-          <div class="grid-content">
-            &nbsp;
-          </div>
-        </el-col>
-        <el-col
-          :md="16"
-          style="text-align: right"
-        >
-          <div
-            class="grid-content"
-            style="font-size: 14px"
-          >
-            <el-button type="info" plain>
-            {{ me.name }}
-            </el-button>
-            <el-button type="plain" @click="$router.push('/wallet')">My Account</el-button>
+        <el-col :md="8" style="text-align: left"></el-col>
+        <el-col :md="16" style="text-align: right">
+          <div class="grid-content" style="font-size: 14px">
+            <el-button type="plain" size="mini" @click="$router.push('/wallet')">My Account</el-button>
           </div>
         </el-col>
       </el-row>
     </el-header>
     <el-main>
       <el-row :gutter="10">
-        <el-col
-          :md="8"
-          style="text-align: center"
-        >
+        <el-col :md="8" style="text-align: center">
           <div class="grid-content">
-            <router-link to="/"><img
-                src="./assets/ein.jpg"
-                class="logo-img"
-              ><br><br>
-              Dawg Food</router-link>
+              <img src="./assets/ein.jpg" class="logo-img" @click="redirectToHome" />
+              <br />
+              <img src="./assets/logo-text.png" alt="DAWGFOOD" @click="redirectToHome" />
           </div>
         </el-col>
         <el-col :md="16">
@@ -55,20 +34,37 @@ export default {
   data() {
     return {
       me: {
-        name: "Kevin owo"
+        name: "-"
       },
       search: "",
       searchOptions: [
         { value: "district-market", label: "District Market" },
-        { value: "lander-hall-1", label: "Lander Hall" },
+        { value: "lander-hall-1", label: "Lander Hall" }
       ]
     };
   },
-  methods: {}
+  mounted() {
+    if (localStorage.user) {
+      this.me.name = localStorage.user;
+    } else {
+      this.me.name = "Guest";
+    }
+  },
+  methods: {
+    redirectToHome() {
+      if (localStorage.user) { this.$router.push("/home") } else { this.$router.push("/") }
+    }
+  }
 };
 </script>
 
 <style scoped>
+.dawgfood {
+  font-size: 24px;
+  text-transform: uppercase;
+  padding: 15px;
+  margin-bottom: 15px;
+}
 .logo-img {
   border-radius: 128px;
   max-width: 128px;
@@ -83,9 +79,6 @@ h3 {
 }
 /*
 .backdrop {
-  background: url(assets/backdrop.jpg) no-repeat;
-  background-size: cover;
-  background-color: #000;
   min-height: 500px;
 }
 */
@@ -103,17 +96,30 @@ html {
   margin: 0;
   padding: 0;
   font-family: Helvetica, sans-serif;
-  background: url(assets/backdrop.jpg) no-repeat;
+  /* background: url(assets/backdrop.jpg) no-repeat; */
   background-size: cover;
-  background-color: #000;
   min-height: 500px;
+}
+
+body {
+  background-color: #000;
+  background-image: linear-gradient(
+      315deg,
+      rgba(72, 84, 97, 1),
+      rgba(40, 49, 59, 0.5)
+    ),
+    url(assets/backdrop.jpg);
+  background-size: cover, cover;
+  background-position: bottom right, bottom right;
+  min-height: 100vh;
+  height: 100%;
 }
 
 body,
 p,
 h1,
 h2 {
-  color: #FFF;
+  color: #fff;
 }
 
 .el-header,
@@ -142,6 +148,4 @@ body > .el-container {
 .el-button {
   font-family: Helvetica, sans-serif;
 }
-
-
 </style>
